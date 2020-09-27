@@ -1,3 +1,8 @@
+<?php
+	require_once "../class/classe_usuario.php";
+	$usuario = new Usuario("formulario_covid_pmjm", "localhost", "root", "");
+?>
+
 <html lang="pt-br">
 <head>
         <meta charset="utf-8">
@@ -22,11 +27,31 @@
 </head>
 
 <body>
+	<?php
+		if(isset($_POST['cpf'])){
+			$cpf = addslashes($_POST['cpf']);
+			$senha = addslashes($_POST['senha']);
+		
+			$res = $usuario->login($_POST['cpf'],$_POST['senha']);
+
+			// foreach($res as $key => $value){
+			// 	echo $key.": ".$value."\n";
+			// }
+
+			if($res['formulario_grupo_risco'])
+				header("Location: ./form_covid.php");
+			else
+				header("Location: ./form_grupo_risco.php");
+
+			exit();
+		}	
+	?> 
+
 	<div id="corpo_formulario">
 		<h2>ENTRAR</h2>
 		
 		<!-- <form method="post" action="processa_dados.php"> -->
-		<form method="post">
+		<form method="POST">
 		
             <input name="cpf" id= cpf type="text" placeholder="CPF" >
 			</br>
@@ -35,21 +60,13 @@
 			</br>
 				
             <input type="submit" value="ACESSAR">
-			<a href="cadastrar.html">Ainda não é cadastrado? <strong>Cadastre-se Aqui!</strong></a>
+			<a href="cadastrar.php">Ainda não é cadastrado? <strong>Cadastre-se Aqui!</strong></a>
 			</br>
 		
 		</form>
 
 	</div>
 	
-	<?php
-		/*verifica se o usuario clicou no botão*/
-		isset($_post['nome']){
-			
-		
-		}
-	
-	?>
 </body>
 
 </html>
