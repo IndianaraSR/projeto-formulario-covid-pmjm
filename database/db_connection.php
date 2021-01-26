@@ -1,4 +1,18 @@
 <?php
+	session_start();
+
+	define('DB_HOST', 'localhost');
+	define('DB_USERNAME', 'root');
+	define('DB_PASSWORD', '');
+	define('DB_NAME', 'formulario_covid_pmjm');
+
+	try {
+		$connect = new PDO("mysql:host=".dbhost."; dbname=".dbname, dbuser, dbpass);
+		$connect->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+	}
+	catch(PDOException $e) {
+		echo $e->getMessage();
+	}
 
 /*conexão com o banco de dados*/
 /*try{
@@ -11,7 +25,7 @@
 /*inerção de dados 1*/
 /*$res = $pdo->prepare("INSERT INTO usuarios(nome, cpf, telefone, email, senha) VALUES (:n, :c, :t, :e, :s)");
 	
-	$res->bindValue(":n", "renan");
+	$res->bindValue(":n", "Indianara");
 	$res->bindValue(":c", "369258147");
 	$res->bindValue(":t", "999999");
 	$res->bindValue(":e", "teste2");
